@@ -1,9 +1,9 @@
 class Storage
-  PATH = "storage.txt"
+  DEFAULT_PATH = File.join( RAILS_ROOT, "storage.txt" )
 
 
-  def self.all
-    self.new.all_pages.keys
+  def initialize path = DEFAULT_PATH
+    @path = path
   end
 
 
@@ -28,7 +28,7 @@ class Storage
     pages = {}
     wiki_name = nil
     wiki_name_line = true
-    IO.read( PATH ).each_line do | each |
+    IO.read( @path ).each_line do | each |
       if wiki_name_line
         wiki_name_line = nil
         wiki_name = each.chomp
@@ -49,10 +49,10 @@ class Storage
 
 
   def write pages
-    File.open( PATH, "w" ) do | f |
-      pages.each_pair do | wiki_name, content |
+    File.open( @path, "w" ) do | f |
+      pages.keys.sort.each do | wiki_name |
         f.puts wiki_name
-        f.puts content
+        f.puts pages[ wiki_name ]
         f.puts "\f"
       end
     end

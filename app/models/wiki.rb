@@ -1,6 +1,7 @@
 class Wiki
   def all_pages
-    Storage.all.sort.collect do | each, content |
+    all_wiki_names = Storage.new.all_pages.keys
+    all_wiki_names.sort.collect do | each, content |
       Page.load each
     end
   end
