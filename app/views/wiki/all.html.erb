@@ -5,7 +5,7 @@
 <%= navigation_bar @title %>
 
 <ul>
-<%- @all_pages.each do | each | -%>
+<%- @all_pages.sort.each do | each | -%>
   <li><%= link_to( each.name, :action => "view", :id => each.wiki_name ) %>
 <%- end -%>
 </ul>

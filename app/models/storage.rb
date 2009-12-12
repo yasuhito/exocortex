@@ -9,17 +9,13 @@ class Storage
 
   def save page
     pages = all_pages
-    pages[ page.wiki_name ] = page.content.gsub( /\r\n/, "\n" ).split( "\n" )
+    pages[ page.wiki_name ] = page
     write pages
   end
 
 
   def load wiki_name
-    if all_pages[ wiki_name ]
-      Page.new wiki_name, all_pages[ wiki_name ].join( "\n" )
-    else
-      nil
-    end
+    all_pages[ wiki_name ]
   end
 
 
@@ -29,6 +25,20 @@ class Storage
 
 
   def all_pages
+    pages = {}
+    parse_data.keys.each do | each |
+      pages[ each ] = Page.new( each, parse_data[ each ].join( "\n" ) )
+    end
+    pages
+  end
+
+
+  ##############################################################################
+  private
+  ##############################################################################
+
+
+  def parse_data
     pages = {}
     wiki_name = nil
     wiki_name_line = true
@@ -47,16 +57,11 @@ class Storage
   end
 
 
-  ##############################################################################
-  private
-  ##############################################################################
-
-
   def write pages
     File.open( @path, "w" ) do | f |
       pages.keys.sort.each do | wiki_name |
         f.puts wiki_name
-        f.puts pages[ wiki_name ]
+        f.puts pages[ wiki_name ].content
         f.puts "\f"
       end
     end

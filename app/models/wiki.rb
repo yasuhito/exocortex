@@ -1,13 +1,15 @@
 class Wiki
-  def all_pages
-    all_wiki_names = Storage.new.all_pages.keys
-    all_wiki_names.sort.collect do | each, content |
-      Storage.new.load each
-    end
+  def initialize storage_path = nil
+    @storage_path = storage_path
   end
 
 
-  def pages_link_to page
+  def all_pages
+    ( @storage_path ? Storage.new( @storage_path ) : Storage.new ).all_pages.values
+  end
+
+
+  def all_pages_linking_to page
     all_pages.select do | each |
       each.content =~ /\[\[#{ Regexp.escape page.name }\]\]/
     end

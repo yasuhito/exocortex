@@ -6,10 +6,10 @@
 
 <div class="navigation navfoot">
   <%= link_to "Edit Page", { :action => "edit", :id => @page.wiki_name }, :accesskey => "E" %>
-  <%- unless @wiki.pages_link_to( @page ).empty? -%>
+  <%- unless @wiki.all_pages_linking_to( @page ).empty? -%>
     | Linked from: 
     <span class="linked">
-      <%= @wiki.pages_link_to( @page ).collect { | each | link_to each.name, { :action => "view", :id => each.wiki_name } }.join(", ") %>
+      <%= @wiki.all_pages_linking_to( @page ).collect { | each | link_to each.name, { :action => "view", :id => each.wiki_name } }.join(", ") %>
     </span>
   <%- end -%>  
 </div>

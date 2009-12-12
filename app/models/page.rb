@@ -11,12 +11,22 @@ class Page
   #
   def initialize wiki_name, content = nil
     @wiki_name = wiki_name
-    @content = content
+    @content = content.gsub( /\r\n/, "\n" )
   end
 
 
   def name
     Syntax.page_name_from @wiki_name
+  end
+
+
+  def <=> other
+    name <=> other.name
+  end
+
+
+  def == other
+    ( name == other.name ) && ( content.chomp == other.content.chomp )
   end
 
 

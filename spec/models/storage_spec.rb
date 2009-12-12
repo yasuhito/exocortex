@@ -50,12 +50,4 @@ EOF
     storage.exists?( "Superman" ).should be_true
     storage.exists?( "Hulk" ).should be_false
   end
-
-
-  def tempfile content
-    t = Tempfile.new( "storage" )
-    t.print content
-    t.flush
-    t
-  end
 end
