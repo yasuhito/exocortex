@@ -2,7 +2,7 @@
 
 <%= navigation_bar @page.name %>
 
-<%= make_interlinks @page.html %>
+<%= make_interlinks @page.to_html %>
 
 <div class="navigation navfoot">
   <%= link_to "Edit Page", { :action => "edit", :id => @page.wiki_name }, :accesskey => "E" %>

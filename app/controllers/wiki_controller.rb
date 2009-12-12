@@ -1,11 +1,12 @@
 class WikiController < ApplicationController
   def initialize
+    @storage = Storage.new
     @wiki = Wiki.new
   end
 
 
   def view
-    @page = Page.load( params[ :id ] )
+    @page = @storage.load( params[ :id ] )
   end
 
 
@@ -31,12 +32,13 @@ class WikiController < ApplicationController
 
 
   def edit
-    @page = Page.load( params[ :id ] )
+    @page = @storage.load( params[ :id ] )
   end
 
 
   def save
-    page = Page.create( params[ :id ], params[ :content ] )
+    page = Page.new( params[ :id ], params[ :content ] )
+    @storage.save page
     redirect_to :action => :view, :id => page.wiki_name
   end
 end

@@ -15,11 +15,11 @@ module WikiHelper
 
   def make_interlinks html
     html.gsub( /\[\[(.*)\]\]/ ) do
-      referred = Page.load( $1 )
-      if referred.exists?
-        link_to referred.name, :action => "view", :id => $1
+      referred_wiki_name = $1
+      if Storage.new.exists?( referred_wiki_name )
+        link_to referred_wiki_name.gsub( "+", " " ), :action => "view", :id => referred_wiki_name
       else
-        referred.name + link_to( "?", :action => "create", :id => $1 )
+        referred_wiki_name.gsub( "+", " " ) + link_to( "?", :action => "create", :id => referred_wiki_name )
       end
     end
   end

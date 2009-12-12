@@ -7,15 +7,19 @@ class Storage
   end
 
 
-  def save wiki_name, content
+  def save page
     pages = all_pages
-    pages[ wiki_name ] = content.gsub( /\r\n/, "\n" ).split( "\n" )
+    pages[ page.wiki_name ] = page.content.gsub( /\r\n/, "\n" ).split( "\n" )
     write pages
   end
 
 
   def load wiki_name
-    all_pages[ wiki_name ] ? all_pages[ wiki_name ].join( "\n" ) : ""
+    if all_pages[ wiki_name ]
+      Page.new wiki_name, all_pages[ wiki_name ].join( "\n" )
+    else
+      nil
+    end
   end
 
 

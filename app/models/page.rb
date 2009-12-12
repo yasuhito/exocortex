@@ -3,60 +3,28 @@ require "redcloth"
 
 class Page
   attr_reader :wiki_name
+  attr_reader :content
 
 
   #
-  # Page.create( "Hello+World", "h1. Hello" )
+  # Page.new( "Hello+World", "h1. Hello" )
   #
-  def self.create wiki_name, content
-    page = self.new( wiki_name )
-    page.save content
-  end
-
-
-  #
-  # Page.load( "Hello+World" )
-  #
-  def self.load wiki_name
-    self.new wiki_name
-  end
-
-
-  def initialize wiki_name
+  def initialize wiki_name, content = nil
     @wiki_name = wiki_name
-    @storage = Storage.new
-  end
-
-
-  def save content
-    @storage.save @wiki_name, content
-    self
-  end
-
-
-  def <=> other
-    name <=> other.name
+    @content = content
   end
 
 
   def name
-    @wiki_name.gsub( /\++/, " " )
+    Syntax.page_name_from @wiki_name
   end
 
 
-  def html
+  def to_html
     red_cloth = RedCloth.new( content )
     red_cloth.no_span_caps = true
-    red_cloth.to_html.gsub( /\[\[(.*)\]\]/ ) { "[[#{ $1.gsub( /\s/, "+" ) }]]" }
-  end
-
-
-  def exists?
-    @storage.exists? wiki_name
-  end
-
-
-  def content
-    @storage.load wiki_name
+    red_cloth.to_html.gsub( /\[\[(.*)\]\]/ ) do
+      "[[" + Syntax.wiki_name_from( $1 ) + "]]"
+    end
   end
 end
