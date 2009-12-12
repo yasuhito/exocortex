@@ -1,25 +1,17 @@
 module WikiHelper
-  def page_name name
+  def page_title name
     %{<h1 id="pageName">#{ name }</h1>}
   end
 
 
-  def navigation_bar name
-    %{<div class="navigation">} +
-      ( name != "Home Page" ? navi_home + " | " : "" ) +
-      ( name != "All Pages" ? link_to( "All Pages", { :action => "all" }, :accesskey => "A" ) + " | " : "" ) + 
-      render( :file => 'search_form' ) +
-    %{</div>}
-  end
-
-
-  def make_interlinks html
+  def make_interlinks html, storage
     html.gsub( /\[\[(.*)\]\]/ ) do
       referred_wiki_name = $1
-      if Storage.new.exists?( referred_wiki_name )
-        link_to referred_wiki_name.gsub( "+", " " ), :action => "view", :id => referred_wiki_name
+      referred_page_name = Syntax.page_name_from( $1 )
+      if storage.exists?( referred_wiki_name )
+        link_to referred_page_name, :action => "view", :id => referred_wiki_name
       else
-        referred_wiki_name.gsub( "+", " " ) + link_to( "?", :action => "create", :id => referred_wiki_name )
+        referred_page_name + link_to( "?", :action => "create", :id => referred_wiki_name )
       end
     end
   end
@@ -30,7 +22,7 @@ module WikiHelper
   end
 
 
-  def all_pages
-    @wiki.all_pages
+  def navi_all
+    link_to( "All Pages", { :action => "all" }, :accesskey => "A" )
   end
 end

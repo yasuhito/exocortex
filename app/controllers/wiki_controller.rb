@@ -7,6 +7,8 @@ class WikiController < ApplicationController
 
   def view
     @page = @storage.load( params[ :id ] )
+    @title = @page.name
+    @linked_from_list = @wiki.all_pages_linking_to( @page )
   end
 
 

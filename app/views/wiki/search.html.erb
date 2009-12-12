@@ -1,8 +1,8 @@
 <%- @title = "Search results for \"#{h @query}\"" -%>
 
-<%= page_name @title %>
+<%= page_title @title %>
 
-<%= navigation_bar @title %>
+<%= render :file => "navigation_bar" %>
 
 <%- unless @title_results.empty? -%>
 <h2><%= @title_results.length %> page(s) containing search string in the page name:</h2>

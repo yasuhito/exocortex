@@ -1,0 +1,5 @@
+<div class="navigation">
+  <%= navi_home + " | " if @title != "Home Page" %>
+  <%= navi_all + " | " if @title != "All Pages" %>
+  <%= render :file => "search_form" %>
+</div>

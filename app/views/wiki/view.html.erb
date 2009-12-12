@@ -1,15 +1,15 @@
-<%= page_name @page.name %>
+<%= page_title @page.name %>
 
-<%= navigation_bar @page.name %>
+<%= render :file => "navigation_bar" %>
 
-<%= make_interlinks @page.to_html %>
+<%= make_interlinks @page.to_html, @storage %>
 
 <div class="navigation navfoot">
   <%= link_to "Edit Page", { :action => "edit", :id => @page.wiki_name }, :accesskey => "E" %>
-  <%- unless @wiki.all_pages_linking_to( @page ).empty? -%>
+  <%- unless @linked_from_list.empty? -%>
     | Linked from: 
     <span class="linked">
-      <%= @wiki.all_pages_linking_to( @page ).collect { | each | link_to each.name, { :action => "view", :id => each.wiki_name } }.join(", ") %>
+      <%= @linked_from_list.collect { | each | link_to( each.name, :action => "view", :id => each.wiki_name ) }.join( ", " ) %>
     </span>
   <%- end -%>  
 </div>
