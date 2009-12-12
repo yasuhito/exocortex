@@ -1,0 +1,6 @@
+<% form_tag( { :controller => 'wiki', :action => 'search' },
+              { 'id' => 'navigationSearchForm', 'method' => 'get', 'accept-charset' => 'utf-8' } ) do %>
+     <fieldset class="search"><input type="text" id="searchField" name="query" value="Search"
+               onfocus="this.value == 'Search' ? this.value = '' : true"
+               onblur="this.value == '' ? this.value = 'Search' : true" /></fieldset>
+<% end %>

@@ -1,0 +1,28 @@
+<html>
+<head>
+  <title>
+    <%- if @title -%>
+      <%= @title %> in Exocortex
+    <%- else -%>
+      <%= @page.name %> in Exocortex
+    <%- end -%>
+  </title>
+  <%= stylesheet_link_tag "exocortex.css" %>
+  <style type="text/css">
+    h1#pageName, div.info, .newWikiWord a, a.existingWikiWord, .newWikiWord a:hover, #TextileHelp h3 { 
+      color: #008B26; 
+    }
+  </style>
+</head>
+
+<body>
+  <div id="Container">
+    <div id="Content">
+
+    <%= @content_for_layout %>
+
+    </div> <!-- Content -->
+  </div> <!-- Container -->
+</body>
+
+</html>

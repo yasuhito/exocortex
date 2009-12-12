@@ -1,0 +1,23 @@
+<%- @title = "Editing \"#{ @page.name }\"" -%>
+
+<%= page_name @title %>
+
+<div id="MarkupHelp">
+  <%= render :file => "textile_help" %>
+  <%= render :file => "wiki_words_help" %>
+</div>
+
+<div id="left">
+<% form_tag( { :action => "save", :id => @page.wiki_name }, { :id => "editForm" } ) do %>
+  <div>
+    <%= text_area_tag "content", @page.content, :cols=>60, :rows => 24 %>
+    <div id="editFormButtons">
+      <%= submit_tag "Submit", :accesskey => "s" %>
+      |
+      <span>
+        <%= link_to "Cancel", { :action => "view", :id => "Home+Page" }, :accesskey => "c" %>
+      </span>
+    </div>
+  </div>
+<% end %>
+</div>

@@ -1,0 +1,11 @@
+<%- @title = "All Pages" -%>
+
+<%= page_name @title %>
+
+<%= navigation_bar @title %>
+
+<ul>
+<%- @all_pages.each do | each | -%>
+  <li><%= link_to( each.name, :action => "view", :id => each.wiki_name ) %>
+<%- end -%>
+</ul>
