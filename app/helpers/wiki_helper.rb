@@ -9,20 +9,20 @@ module WikiHelper
       referred_wiki_name = $1
       referred_page_name = Syntax.page_name_from( $1 )
       if storage.exists?( referred_wiki_name )
-        link_to referred_page_name, :action => "view", :id => referred_wiki_name
+        link_to referred_page_name, :controller => "wiki", :action => "view", :id => referred_wiki_name
       else
-        referred_page_name + link_to( "?", :action => "create", :id => referred_wiki_name )
+        referred_page_name + link_to( "?", :controller => "wiki", :action => "create", :id => referred_wiki_name )
       end
     end
   end
 
 
   def navi_home
-    link_to( "Home Page", { :action => "view", :id => "Home+Page" }, :accesskey => "H" )
+    link_to( "Home Page", { :controller => "wiki", :action => "view", :id => "Home+Page" }, :accesskey => "H" )
   end
 
 
   def navi_all
-    link_to( "All Pages", { :action => "all" }, :accesskey => "A" )
+    link_to( "All Pages", { :controller => "wiki", :action => "all" }, :accesskey => "A" )
   end
 end

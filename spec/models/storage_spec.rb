@@ -2,11 +2,6 @@ require "spec_helper"
 
 
 describe Storage do
-  before :each do
-    @storage = Storage.new
-  end
-
-
   it "should save pages in the format separated with ^L" do
     data_file = tempfile( "" )
     Storage.new( data_file.path ).save Page.new( "Superman", "His name is Clark Kent." )
