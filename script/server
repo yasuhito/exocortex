@@ -1,3 +1,65 @@
 #!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+storage_txt = File.expand_path('../../storage.txt',  __FILE__)
+
+unless FileTest.exists?( storage_txt )
+  File.open( storage_txt, "w" ) do | f |
+    f.puts <<-EOF
+Home+Page
+h1. Hello Exocortex World!
+
+Exocortex is a personal wiki system powered by Ruby on Rails.
+
+日本語も使えます。
+
+h2. Links
+
+* "Google":http://www.google.com/
+* "http://www.google.com/":http://www.google.com/
+* [[You Wanna Lobster?]]
+
+
+h2. Lists
+
+* A first item
+* A second item
+* A third
+
+# A first item
+# A second item
+# A third
+
+
+h2. Pre
+
+<pre>
+<code>
+#!/usr/bin/env ruby
+puts "Hello Exocortex World!"
+</code>
+</pre>
+
+You+Wanna+Lobster?
+<pre>
+                              ,.---.   
+                    ,,,,     /    _ `.
+                     \\\\   /      \  )
+                      |||| /\/``-.__\/
+                      ::::/\/_
+      {{`-.__.-'(`(^^(^^^(^ 9 `.========='
+     {{{{{{ { ( ( (  (   (-----:=
+      {{.-'~~'-.(,(,,(,,,(__6_.'=========.
+                      ::::\/\ 
+                      |||| \/\  ,-'/\
+       jgs           ////   \ `` _/  )
+                    ''''     \  `   /
+                              `---''
+</pre>
+
+EOF
+  end
+end
+
 require File.expand_path('../../config/boot',  __FILE__)
 require 'commands/server'
